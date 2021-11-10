@@ -36,4 +36,20 @@ RSpec.describe 'plots index' do
       expect(page).to_not have_content(@plant_2.name)
     end
   end
+
+  it 'can remove a plant' do
+    visit plots_path
+
+    within("#plot-#{@plot_1.number}") do
+      within('#plant-0')do
+        click_on("Remove")
+      end
+      expect(page).to_not have_content(@plant_1.name)
+      expect(page).to have_content(@plant_2.name)
+    end
+
+    within("#plot-#{@plot_2.number}") do
+      expect(page).to have_content(@plant_1.name)
+    end
+  end
 end

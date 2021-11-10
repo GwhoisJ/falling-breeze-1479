@@ -2,8 +2,13 @@
   <div id="plot-<%=plot.number%>">
     <h3><%=plot.number %></h3>
     <ul>
-      <% plot.plants.each do |plant| %>
-        <li><%= plant.name %></li>
+      <% plot.plants.each_with_index do |plant, index| %>
+        <li id="plant-<%= index %>">
+          <%= plant.name %>
+          <%= form_with url: plant_plot_path(plant.plant_plot(plot)), method: :delete, local: true do |f| %>
+            <%= f.submit "Remove" %>
+          <% end %>
+        </li>
       <% end %>
     </ul>
   </div>
